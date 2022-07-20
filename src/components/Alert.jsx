@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Alert = ({ message, onClose }) => {
+const Alert = (props: any) => {
+  const { message, onClose } = props;
   return (
     <div
       className="bg-red-100 border-t-4 border-red-500 rounded-b text-teal-900 px-4 py-3 shadow-md w-9/12 fixed z-50"

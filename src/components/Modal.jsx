@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState } from 'react';
 import {
   FaHandHoldingUsd,
   FaLock,
@@ -7,28 +7,21 @@ import {
   FaRegPaperPlane,
   FaFileInvoice,
   FaCheckCircle,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition } from '@headlessui/react';
 
-const Modal = ({
-  header,
-  message1,
-  message2,
-  message3,
-  handleOpenClose,
-  handlClose,
-  name,
-}) => {
+const Modal = (props) => {
   const cancelButtonRef = useRef(null);
+  const { header, message1, message2, message3, show, onClose, name } = props;
 
   return (
-    <Transition.Root show={handleOpenClose} as={Fragment}>
+    <Transition.Root show={show} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
         initialFocus={cancelButtonRef}
-        onClose={close}
+        onClose={true}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -63,17 +56,17 @@ const Modal = ({
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10">
-                    {name === "stake" ? (
+                    {name === 'stake' ? (
                       <FaLock className="h-6 w-6 text-gray-600" />
-                    ) : name === "unstake" ? (
+                    ) : name === 'unstake' ? (
                       <FaUnlockAlt className="h-6 w-6 text-gray-600" />
-                    ) : name === "claim" ? (
+                    ) : name === 'claim' ? (
                       <FaGift className="h-6 w-6 text-gray-600" />
-                    ) : name === "transfer" ? (
+                    ) : name === 'transfer' ? (
                       <FaRegPaperPlane className="h-6 w-6 text-gray-600" />
-                    ) : name === "balance" ? (
+                    ) : name === 'balance' ? (
                       <FaFileInvoice className="h-6 w-6 text-gray-600" />
-                    ) : name === "buy" ? (
+                    ) : name === 'buy' ? (
                       <FaHandHoldingUsd className="h-6 w-6 text-gray-600" />
                     ) : (
                       <FaCheckCircle className="h-6 w-6 text-gray-600" />
@@ -98,7 +91,7 @@ const Modal = ({
                 <button
                   type="button"
                   className="w-full outline-none inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={handlClose}
+                  onClick={onClose}
                 >
                   Close
                 </button>

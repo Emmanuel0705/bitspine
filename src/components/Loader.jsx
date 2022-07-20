@@ -1,4 +1,4 @@
-const Loader = (props) => {
+const Loader = () => {
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto flex items-end align-middle justify-center min-h-screen pt-4 px-4 pb-20 text-center">
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
