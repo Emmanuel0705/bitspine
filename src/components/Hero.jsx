@@ -13,7 +13,7 @@ const Hero = ({ connectWallet }) => {
   return (
     <>
       <header className="bg-[#011936]">
-        <nav className="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 md:flex md:space-x-6">
+        <nav className="items-center pt-5 px-4 mx-auto  sm:px-8 md:flex md:space-x-6">
           <div className="flex justify-between">
             <div className="text-white hover:text-[#BD1E51] font-extrabold text-4xl">
               bitSpine

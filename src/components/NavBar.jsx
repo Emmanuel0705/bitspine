@@ -11,8 +11,8 @@ const Nav = () => {
     { title: 'Partners', path: 'javascript:void(0)' },
   ];
   return (
-    <nav className="bg-[#011936] w-full border-b md:border-0 md:static">
-      <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
+    <nav className="bg-[#011936]  pt-6">
+      <div className="items-center px-4  mx-auto md:flex md:px-8">
         <div className="flex items-center justify-between py-3 md:py-5 md:block">
           <div className="text-white hover:text-[#BD1E51] font-extrabold text-4xl">
             bitSpine

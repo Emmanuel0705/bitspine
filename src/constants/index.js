@@ -3,6 +3,7 @@ import COMPT_ABI from "./abi/comptroller.json";
 import USDT_ABI from "./abi/usdt.json";
 import CUSDT_ABI from "./abi/cusdt.json";
 import CDAI from "./abi/cdia.json";
+import { oracleData } from "./oracle.";
 export const CONSTANTS = {
     CONTRACT_ADDRESS: "0xd6801a1dffcd0a410336ef88def4320d6df1883e",
     CONTRACT_ABI: ABI,
@@ -14,6 +15,7 @@ export const CONSTANTS = {
     USDT_ABI,
     CDAI,
     CDAI_CA: "0x6d7f0754ffeb405d23c51ce938289d4835be3b14",
+    ORACLEDATA: oracleData,
 };
 
 // CUSDT_CA: "0x6d7f0754ffeb405d23c51ce938289d4835be3b14",  cdia

@@ -14,6 +14,7 @@ const Prompt = (props) => {
     show,
     onChangeAmount,
   } = props;
+  
 
   return (
     <Transition.Root show={show} as={Fragment}>
@@ -21,7 +22,7 @@ const Prompt = (props) => {
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
         initialFocus={cancelButtonRef}
-        onClose={true}
+        onClose={() => false}
       >
         <div className="flex justify-center items-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
