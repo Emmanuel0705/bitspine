@@ -61,7 +61,7 @@ const App = () => {
                 await getEthBalance();
                 await getAccountLiquity();
             })();
-            // window.sessionStorage.removeItem('address');
+            window.sessionStorage.removeItem("address");
         }
     };
 
@@ -205,29 +205,29 @@ const App = () => {
     };
 
     // const exitMarket = async () => {
-    //   try {
-    //     const provider = new ethers.providers.Web3Provider(ethereum);
-    //     const signer = provider.getSigner();
-    //     const contract = new ethers.Contract(
-    //       CONSTANTS.COMPTROLLER_CONTRACT_ADDRESS,
-    //       CONSTANTS.COMPT_ABI,
-    //       signer
-    //     );
+    //     try {
+    //         const provider = new ethers.providers.Web3Provider(ethereum);
+    //         const signer = provider.getSigner();
+    //         const contract = new ethers.Contract(
+    //             CONSTANTS.COMPTROLLER_CONTRACT_ADDRESS,
+    //             CONSTANTS.COMPT_ABI,
+    //             signer
+    //         );
 
-    //     const markets = [CONSTANTS.CONTRACT_ADDRESS];
+    //         const markets = [CONSTANTS.CONTRACT_ADDRESS];
 
-    //     setLoader(true);
-    //     const tx = await contract.exitMarket(CONSTANTS.CONTRACT_ADDRESS, {
-    //       gasLimit: ethers.utils.hexlify(250000),
-    //       gasPrice: ethers.utils.hexValue(20000000000),
-    //     });
-    //     await tx.wait();
-    //     setLoader(false);
-    //     setReload(!reload);
-    //   } catch (error) {
-    //     setLoader(false);
-    //     console.log(error);
-    //   }
+    //         setLoader(true);
+    //         const tx = await contract.exitMarket(CONSTANTS.CONTRACT_ADDRESS, {
+    //             gasLimit: ethers.utils.hexlify(250000),
+    //             gasPrice: ethers.utils.hexValue(20000000000),
+    //         });
+    //         await tx.wait();
+    //         setLoader(false);
+    //         setReload(!reload);
+    //     } catch (error) {
+    //         setLoader(false);
+    //         console.log(error);
+    //     }
     // };
 
     const getAccountLiquity = async () => {
