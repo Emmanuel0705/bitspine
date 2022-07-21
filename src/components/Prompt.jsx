@@ -13,6 +13,7 @@ const Prompt = (props) => {
     button,
     show,
     onChangeAmount,
+    placeholder
   } = props;
   
 
@@ -95,7 +96,7 @@ const Prompt = (props) => {
                             required
                             onChange={onChangeAmount}
                             className="appearance-none bg-slate-500 relative block w-full px-2 py-3 border border-gray-300 placeholder-gray-200 text-gray-100 rounded focus:outline-none focus:ring-white focus:border-white  focus:z-10 sm:text-sm"
-                            placeholder="Amount in ETH"
+                            placeholder={placeholder}
                           />
                         </div>
                       </div>
