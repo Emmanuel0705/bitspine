@@ -49,7 +49,7 @@ const App = () => {
     }, 5000);
   };
 
-  useEffect(() => {
+  const lunchWith = () => {
     if (ethereum) {
       const address = window.sessionStorage.getItem('address');
       if (address) {
@@ -61,8 +61,12 @@ const App = () => {
         await getEthBalance();
         await getAccountLiquity();
       })();
-      //   window.sessionStorage.removeItem('address');
+      // window.sessionStorage.removeItem('address');
     }
+  };
+
+  useEffect(() => {
+    lunchWith();
   }, [reload]);
 
   const redeem = async () => {
