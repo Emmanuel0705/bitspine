@@ -239,27 +239,30 @@ const App = () => {
             console.log(error);
         }
     };
-    const borrow = async () => {
+    const borrow = async (amount) => {
         try {
             const provider = new ethers.providers.Web3Provider(ethereum);
             const signer = provider.getSigner();
             const address = await signer.getAddress();
             const contract = new ethers.Contract(
-                CONSTANTS.CDAI_CA,
-                CONSTANTS.CDAI,
+                CONSTANTS.CUSDT_CA,
+                CONSTANTS.CUSDT_ABI,
                 signer
             );
-            const borrowAmount = 0.1 * Math.pow(10, 18);
-            console.log(borrowAmount);
+            const borrowAmount = amount * Math.pow(10, 18);
+            setLoader(true);
+
             let tx = await contract.borrow(`${borrowAmount}`, {
                 from: address,
                 gasLimit: ethers.utils.hexlify(250000),
                 gasPrice: ethers.utils.hexValue(20000000000),
             });
-            tx.wait();
+            await tx.wait();
+            setLoader(false);
 
             console.log({ tx }, "TX_________________");
         } catch (error) {
+            setLoader(false);
             console.log(error);
         }
     };

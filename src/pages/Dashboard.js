@@ -20,6 +20,7 @@ const Dashboard = ({
     ethBal,
     liquidity,
     address,
+    borrow,
 }) => {
     const [tab, setTab] = useState(true);
     const [supplyPrompt, setSupplyPrompt] = useState(false);
@@ -71,7 +72,7 @@ const Dashboard = ({
                 show={borrowPrompt}
                 onClose={() => setBorrowPrompt(false)}
                 onSubmit={() => {
-                    mint(amount);
+                    borrow(borrowAmount);
                     setBorrowPrompt(false);
                 }}
             />
@@ -262,75 +263,6 @@ const Dashboard = ({
                                             <h4 className="text-sm uppercase text-gray-200 leading-tight">
                                                 Your borrows
                                             </h4>
-                                            <div className="bg-slate-800 lg:p-8 rounded-md w-full">
-                                                <div>
-                                                    <div className=" py-4 overflow-x-auto">
-                                                        <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                                                            <table className="min-w-full leading-normal">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th className="px-5 py-3 border-b-2 border-gray-600 bg-slate-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                                                                            Assets
-                                                                        </th>
-                                                                        <th className="px-5 py-3 flex justify-center items-center border-b-2 border-gray-600 bg-slate-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                                                                            Wallet
-                                                                            Balance
-                                                                        </th>
-
-                                                                        <th className="px-5 py-3 border-b-2 border-gray-600 bg-slate-800 text-center text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                                                                            Borrow
-                                                                            APY
-                                                                        </th>
-                                                                        <th className="px-5 py-3 border-b-2 border-gray-600 bg-slate-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"></th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody className="bg-slate-800">
-                                                                    <tr>
-                                                                        <td className="px-5 py-5 border-b border-gray-600 bg-slate-800 text-sm">
-                                                                            <div className="flex items-center">
-                                                                                <div className="flex-shrink-0 w-10 h-10">
-                                                                                    <img
-                                                                                        className="w-full h-full rounded-full"
-                                                                                        src="https://s2.coinmarketcap.com/static/img/coins/64x64/5636.png"
-                                                                                        alt=""
-                                                                                    />
-                                                                                </div>
-                                                                                <div className="ml-3">
-                                                                                    <div className="text-white font-bold whitespace-nowrap">
-                                                                                        USDT
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td className=" py-5 border-b text-center border-gray-600 bg-slate-800 text-sm">
-                                                                            <div className="text-white font-normal whitespace-nowrap">
-                                                                                {
-                                                                                    // usdtBal
-                                                                                }
-                                                                            </div>
-                                                                        </td>
-
-                                                                        <td className="py-5 border-b text-center border-gray-600 bg-slate-800 text-sm">
-                                                                            <div className="text-white whitespace-nowrap">
-                                                                                0.89%
-                                                                            </div>
-                                                                        </td>
-
-                                                                        <td className="px-5 py-5 border-b border-gray-600 bg-slate-800 text-sm">
-                                                                            <Button
-                                                                                title="Redeem"
-                                                                                onClick={() =>
-                                                                                    redeem()
-                                                                                }
-                                                                            />
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div className="absolute bottom-0 inset-x-0">
                                             <canvas
