@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { FaTimes } from 'react-icons/fa';
 
@@ -13,9 +13,8 @@ const Prompt = (props) => {
     button,
     show,
     onChangeAmount,
-    placeholder
+    placeholder,
   } = props;
-  
 
   return (
     <Transition.Root show={show} as={Fragment}>

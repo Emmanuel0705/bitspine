@@ -1,12 +1,9 @@
-import { Fragment, useContext, useState } from "react";
-import { FaWallet, FaLock, FaLockOpen } from "react-icons/fa";
+import { useState } from "react";
 import { IoWalletOutline } from "react-icons/io5";
 import { BsBarChart } from "react-icons/bs";
 
 import Nav from "../components/NavBar";
 import Button from "../components/Button";
-import Loader from "../components/Loader";
-import Modal from "../components/Modal";
 import Prompt from "../components/Prompt";
 import Alert from "../components/Alert";
 import { CONSTANTS } from "../constants";
@@ -20,13 +17,12 @@ const Dashboard = ({
     ethBal,
     liquidity,
     address,
-    borrow,
+    Borrow,
 }) => {
     const [tab, setTab] = useState(true);
     const [supplyPrompt, setSupplyPrompt] = useState(false);
     const [borrowPrompt, setBorrowPrompt] = useState(false);
 
-    const [loader, setLoader] = useState(false);
     const [alert, setAlert] = useState(false);
     const [amount, setAmount] = useState(0);
     const [borrowAmount, setBorrowAmount] = useState(0);
@@ -72,11 +68,10 @@ const Dashboard = ({
                 show={borrowPrompt}
                 onClose={() => setBorrowPrompt(false)}
                 onSubmit={() => {
-                    borrow(borrowAmount);
+                    Borrow(borrowAmount);
                     setBorrowPrompt(false);
                 }}
             />
-            {loader && <Loader />}
             {alert && (
                 <Alert
                     message="this is the alert"
@@ -305,7 +300,11 @@ const Dashboard = ({
                                                 <tbody className="bg-slate-800">
                                                     {CONSTANTS.ORACLEDATA.map(
                                                         (e) => (
-                                                            <tr>
+                                                            <tr
+                                                                key={
+                                                                    e.underlying_name
+                                                                }
+                                                            >
                                                                 <td className="px-5 py-5 border-b border-gray-600 bg-slate-800 text-sm">
                                                                     <div className="flex items-center">
                                                                         <div className="flex-shrink-0 w-10 h-10">
@@ -402,7 +401,11 @@ const Dashboard = ({
                                                 <tbody className="bg-slate-800">
                                                     {CONSTANTS.ORACLEDATA.map(
                                                         (e) => (
-                                                            <tr>
+                                                            <tr
+                                                                key={
+                                                                    e.underlying_name
+                                                                }
+                                                            >
                                                                 <td className="px-5 py-5 border-b border-gray-600 bg-slate-800 text-sm">
                                                                     <div className="flex items-center">
                                                                         <div className="flex-shrink-0 w-10 h-10">
