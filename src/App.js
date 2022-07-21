@@ -9,8 +9,8 @@ import Alert from './components/Alert';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState();
-  const [data, setData] = useState([]);
-  const [done, setDone] = useState(false);
+  // const [data, setData] = useState([]);
+  // const [done, setDone] = useState(false);
   const [cethBalance, setCethBalance] = useState(0);
   const [loader, setLoader] = useState(false);
   const [reload, setReload] = useState(false);
@@ -20,7 +20,7 @@ const App = () => {
 
   const { ethereum } = window;
 
-  const [contract, setContract] = useState({});
+  // const [contract, setContract] = useState({});
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
@@ -369,11 +369,8 @@ const App = () => {
             redeem={redeem}
             ethBal={ethBal}
             cethBal={cethBalance}
-            done={done}
             mint={mint}
             currentAccount={currentAccount}
-            data={data}
-            contract={contract}
             enterMarket={enterMarket}
             Borrow={borrow}
           />
@@ -382,8 +379,6 @@ const App = () => {
             connectWallet={connectWallet}
             currentAccount={currentAccount}
             setCurrentAccount={setCurrentAccount}
-            data={data}
-            contract={contract}
           />
         )}
       </>
