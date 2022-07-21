@@ -5,9 +5,9 @@ const Hero = ({ connectWallet }) => {
 
   // Replace javascript:void(0) path with your path
   const navigation = [
-    { title: 'Markets', path: 'javascript:void(0)' },
-    { title: 'Guides', path: 'javascript:void(0)' },
-    { title: 'Partners', path: 'javascript:void(0)' },
+    { title: 'Markets' },
+    { title: 'Guides' },
+    { title: 'Partners' },
   ];
 
   return (
@@ -61,13 +61,12 @@ const Hero = ({ connectWallet }) => {
             }`}
           >
             <li className="order-2 pb-5 md:pb-0">
-              <a
-                href="javascript:void(0)"
-                className="py-3 px-6 rounded-md shadow-md text-white text-center bg-gray-700 focus:shadow-none block md:inline"
+              <div
+                className="py-3 px-6 cursor-pointer rounded-md shadow-md text-white text-center bg-gray-700 focus:shadow-none block md:inline"
                 onClick={() => connectWallet()}
               >
                 Connect Wallet
-              </a>
+              </div>
             </li>
             <div className="order-1 flex-1 justify-center items-center space-y-5 md:flex md:space-x-6 md:space-y-0">
               {navigation.map((item, idx) => (
@@ -82,28 +81,22 @@ const Hero = ({ connectWallet }) => {
       <section className="mt-24 mx-auto max-w-screen-xl pb-4 px-4 sm:px-8">
         <div className="text-center space-y-4">
           <h1 className="text-gray-400 font-bold text-4xl md:text-5xl">
-            Optimize your website for
-            <span className="text-white"> Search engine</span>
+            BitSpine got your back, Lend cryptocurrencies,
+            <span className="text-white"> Borrow cryptocurrencies</span>
           </h1>
           <p className="text-gray-200 max-w-xl mx-auto leading-relaxed">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum
+            The market for cryptocurrencies and digital blockchain assets has
+            developed into a vibrant ecosystem of investors, speculators, and
+            traders, exchanging thousands of blockchain assets
           </p>
         </div>
         <div className="mt-12 justify-center items-center space-y-3 sm:space-x-6 sm:space-y-0 sm:flex">
-          <a
-            href="javascript:void(0)"
-            className="px-10 py-3.5 w-full bg-slate-700 text-white text-center rounded-md shadow-md block sm:w-auto"
-          >
+          <div className="px-10 py-3.5 w-full bg-slate-700 text-white text-center rounded-md shadow-md block sm:w-auto">
             Get started
-          </a>
-          <a
-            href="javascript:void(0)"
-            className="px-10 py-3.5 w-full text-white text-center border rounded-md duration-300 hover:text-gray-500 hover:shadow block sm:w-auto"
-          >
+          </div>
+          <div className="px-10 py-3.5 w-full text-white text-center border rounded-md duration-300 hover:text-gray-500 hover:shadow block sm:w-auto">
             Try it out
-          </a>
+          </div>
         </div>
       </section>
     </>

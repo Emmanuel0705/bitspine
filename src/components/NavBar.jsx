@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { FaCog } from 'react-icons/fa';
 
-const Nav = () => {
+const Nav = ({ address }) => {
   const [state, setState] = useState(false);
 
   // Replace javascript:void(0) path with your path
   const navigation = [
-    { title: 'Markets', path: 'javascript:void(0)' },
-    { title: 'Guides', path: 'javascript:void(0)' },
-    { title: 'Partners', path: 'javascript:void(0)' },
+    { title: 'Markets' },
+    { title: 'Guides' },
+    { title: 'Partners' },
   ];
   return (
     <nav className="bg-[#011936]  pt-6">
@@ -63,19 +63,20 @@ const Nav = () => {
             {navigation.map((item, idx) => {
               return (
                 <li key={idx} className="text-white hover:text-[#BD1E51]">
-                  <a href={item.path}>{item.title}</a>
+                  <div>{item.title}</div>
                 </li>
               );
             })}
           </ul>
         </div>
         <div className="hidden md:inline-block">
-          <a
-            href="javascript:void(0)"
-            className="py-3 px-4 text-white bg-gray-700 hover:bg-white hover:text-black rounded-md shadow"
-          >
-            0x86...43e4
-          </a>
+          <div className="py-3 px-4 text-white bg-gray-700 hover:bg-white hover:text-black rounded-md shadow">
+            {address &&
+              address.slice(0, 5) +
+                '...' +
+                address.slice(address.length - 4, address.length)}
+            {/* 0x86...43e4 */}
+          </div>
         </div>
         <div className="hidden md:inline-block bg-gray-700 hover:text-black rounded-md p-2 ml-1 cursor-pointer ">
           <FaCog className="h-6 w-6 text-white" />

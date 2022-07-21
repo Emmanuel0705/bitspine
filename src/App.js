@@ -6,6 +6,7 @@ import files from './fakeFile';
 import { ethers } from 'ethers';
 import { CONSTANTS } from './constants';
 import Loader from './components/Loader';
+import Alert from './components/Alert';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState();
@@ -14,6 +15,9 @@ const App = () => {
   const [cethBalance, setCethBalance] = useState(0);
   const [loader, setLoader] = useState(false);
   const [reload, setReload] = useState(false);
+  const [ethBal, setEthBal] = useState(0);
+  const [liquidity, setLiquidity] = useState(0);
+  const [msg, setMsg] = useState('');
 
   const { ethereum } = window;
 
@@ -31,39 +35,34 @@ const App = () => {
         method: 'eth_requestAccounts',
       });
       if (addressArray.length > 0) {
-        setCurrentAccount(addressArray[0]);
         window.sessionStorage.setItem('address', addressArray[0]);
+        setCurrentAccount(addressArray[0]);
       }
     } catch (error) {
       console.error(error);
     }
   };
-  const payload = {
-    uid: `${Date.now()}`,
-    name: files[0].title,
-    url: files[0].fileUrl,
-    thumbnail: files[0].imageUrl,
+
+  const setMessage = (text) => {
+    setMsg(text || 'something went wrong');
+    setTimeout(() => {
+      setMsg('');
+    }, 5000);
   };
 
   useEffect(() => {
     if (ethereum) {
       const address = window.sessionStorage.getItem('address');
       if (address) {
-        console.log(address);
         setCurrentAccount(address);
       }
       (async () => {
+        // await exitMarket();
         await checkCETHBalance();
-        // await callFunc();
-        // await redeem();
-        // await enterMarket();
-        // await getAccountLiquity();
-        //    await getCollateralFactor();
-        // await borrowBalance();
-        // await borrow();
-        // await getSupplyBalance();
-        // await getAssetsIn();
+        await getEthBalance();
+        await getAccountLiquity();
       })();
+      //   window.sessionStorage.removeItem('address');
     }
   }, [reload]);
 
@@ -89,7 +88,7 @@ const App = () => {
       });
 
       console.log({ tx }, 'TX_________________');
-      tx.wait();
+      await tx.wait();
       setLoader(false);
       setReload(!reload);
 
@@ -114,8 +113,18 @@ const App = () => {
       setCethBalance(cTokenBalance);
     } catch (error) {}
   };
+  const getEthBalance = async (value) => {
+    try {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+      const balance = await provider.getBalance(address);
+      setEthBal(ethers.utils.formatEther(balance));
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const mint = async (value) => {
-    alert(value);
     try {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
@@ -127,21 +136,20 @@ const App = () => {
         signer
       );
 
-      setContract(contract);
-
-      console.log(address, ethers.utils.hexlify(2000));
-      console.log(ethers.utils.hexValue(ethers.utils.parseEther('0.5')));
+      setLoader(true);
       const tx = await contract.mint({
         from: address,
         gasLimit: ethers.utils.hexlify(250000),
         gasPrice: ethers.utils.hexValue(20000000000),
         value: ethers.utils.hexValue(ethers.utils.parseEther(value)),
       });
-      console.log(tx, '______________________TX');
-
-      setDone(true);
+      await tx.wait();
+      setLoader(false);
+      setReload(!reload);
       return contract;
     } catch (err) {
+      setLoader(false);
+      setMessage();
       console.log(err);
     }
   };
@@ -171,7 +179,6 @@ const App = () => {
     try {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
-      const address = await signer.getAddress();
       const contract = new ethers.Contract(
         CONSTANTS.COMPTROLLER_CONTRACT_ADDRESS,
         CONSTANTS.COMPT_ABI,
@@ -179,13 +186,43 @@ const App = () => {
       );
 
       const markets = [CONSTANTS.CONTRACT_ADDRESS];
-      console.log(markets);
+
+      setLoader(true);
       const tx = await contract.enterMarkets(markets, {
         gasLimit: ethers.utils.hexlify(250000),
         gasPrice: ethers.utils.hexValue(20000000000),
       });
-      console.log({ tx }, 'TX_________________');
+      await tx.wait();
+      setLoader(false);
+      setReload(!reload);
     } catch (error) {
+      setLoader(false);
+      console.log(error);
+    }
+  };
+
+  const exitMarket = async () => {
+    try {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        CONSTANTS.COMPTROLLER_CONTRACT_ADDRESS,
+        CONSTANTS.COMPT_ABI,
+        signer
+      );
+
+      const markets = [CONSTANTS.CONTRACT_ADDRESS];
+
+      setLoader(true);
+      const tx = await contract.exitMarket(CONSTANTS.CONTRACT_ADDRESS, {
+        gasLimit: ethers.utils.hexlify(250000),
+        gasPrice: ethers.utils.hexValue(20000000000),
+      });
+      await tx.wait();
+      setLoader(false);
+      setReload(!reload);
+    } catch (error) {
+      setLoader(false);
       console.log(error);
     }
   };
@@ -203,7 +240,8 @@ const App = () => {
 
       console.log(address);
       let { 1: tx } = await contract.getAccountLiquidity(address);
-      tx = tx / 1e18;
+      tx = (tx / 1e18) * 50;
+      setLiquidity(tx);
       console.log({ tx }, 'TX_________________');
     } catch (error) {
       console.log(error);
@@ -231,27 +269,34 @@ const App = () => {
       console.log(error);
     }
   };
-  const borrow = async () => {
+  const borrow = async (amount) => {
+    if (amount >= liquidity) {
+      setMessage('You dont have enough Borrow limit to perform this operation');
+      return;
+    }
     try {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       const address = await signer.getAddress();
       const contract = new ethers.Contract(
-        CONSTANTS.CDAI_CA,
-        CONSTANTS.CDAI,
+        CONSTANTS.CUSDT_CA,
+        CONSTANTS.CUSDT_ABI,
         signer
       );
-      const borrowAmount = 0.1 * Math.pow(10, 18);
-      console.log(borrowAmount);
+      const borrowAmount = amount * Math.pow(10, 18);
+      setLoader(true);
+
       let tx = await contract.borrow(`${borrowAmount}`, {
         from: address,
         gasLimit: ethers.utils.hexlify(250000),
         gasPrice: ethers.utils.hexValue(20000000000),
       });
-      tx.wait();
+      await tx.wait();
+      setLoader(false);
 
       console.log({ tx }, 'TX_________________');
     } catch (error) {
+      setLoader(false);
       console.log(error);
     }
   };
@@ -316,16 +361,22 @@ const App = () => {
   return (
     <div className="h-screen bg-[#011936]">
       <>{loader && <Loader />}</>
+      {msg && <Alert message={msg} onClose={() => setMsg(false)} />}
       <>
         {currentAccount ? (
           <Dashboard
+            liquidity={liquidity}
+            address={currentAccount}
             redeem={redeem}
+            ethBal={ethBal}
             cethBal={cethBalance}
             done={done}
             mint={mint}
             currentAccount={currentAccount}
             data={data}
             contract={contract}
+            enterMarket={enterMarket}
+            Borrow={borrow}
           />
         ) : (
           <Homepage
