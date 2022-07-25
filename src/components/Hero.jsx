@@ -91,10 +91,10 @@ const Hero = ({ connectWallet }) => {
           </p>
         </div>
         <div className="mt-12 justify-center items-center space-y-3 sm:space-x-6 sm:space-y-0 sm:flex">
-          <div className="px-10 py-3.5 w-full bg-slate-700 text-white text-center rounded-md shadow-md block sm:w-auto">
+          <div  onClick={() => connectWallet()} className="px-10 py-3.5 w-full bg-slate-700 text-white text-center rounded-md shadow-md block sm:w-auto">
             Get started
           </div>
-          <div className="px-10 py-3.5 w-full text-white text-center border rounded-md duration-300 hover:text-gray-500 hover:shadow block sm:w-auto">
+          <div  onClick={() => connectWallet()} className="px-10 py-3.5 w-full text-white text-center border rounded-md duration-300 hover:text-gray-500 hover:shadow block sm:w-auto">
             Try it out
           </div>
         </div>

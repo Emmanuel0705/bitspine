@@ -33,6 +33,7 @@ const Dashboard = ({
             window.alert("We only support ETH at the moment ");
             return;
         }
+
         setSupplyPrompt(true);
     };
 
